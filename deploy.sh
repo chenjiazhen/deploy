@@ -80,7 +80,7 @@ make && make install
 cd ~ && rm -rf boost_1_59_0*
 # cnf
 mv /etc/my.cnf /etc/my.cnf.bak
-wget -c https://github.com/chenjiazhen/deploy/blob/master/mysql/my.cnf
+wget -c https://raw.githubusercontent.com/chenjiazhen/deploy/master/mysql/my.cnf
 mv my.cnf /etc/my.cnf
 # PATH
 echo -e '\n\nexport PATH=/usr/local/mysql/bin:$PATH\n' >> /etc/profile && source /etc/profile
