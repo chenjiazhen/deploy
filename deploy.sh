@@ -41,6 +41,32 @@ function sourceInstaller() {
   rm -rf $1 $2
 }
 
+# mysql需要的包
+function mysqlFile() {
+  wget -c https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.19.tar.gz
+  wget -c http://nchc.dl.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.tar.gz
+  wget -c https://raw.githubusercontent.com/chenjiazhen/deploy/master/mysql/my.cnf
+  if [ ! -f "mysql-5.7.19.tar.gz" ]; then
+    echo "Did not find mysql-5.7.19.tar.gz"
+    exit 1
+  fi
+  if [ ! -f "boost_1_59_0.tar.gz" ]; then
+    echo "Did not find boost_1_59_0.tar.gz"
+    exit 1
+  fi
+  if [ ! -f "my.cnf" ]; then
+    echo "Did not find my.cnf"
+    exit 1
+  fi
+}
+
+mysqlFile()
+
+exit 1
+
+
+
+
 # go to root directory
 cd
 
@@ -69,7 +95,7 @@ tar -zxvf boost_1_59_0.tar.gz && cd boost_1_59_0/
 cd
 
 echo '================== mysql =================='
-$patch = "${installation_path}/mysql"
+patch="${installation_path}/mysql"
 # add mysql user
 groupadd -r ${user_mysql} && useradd -r -g ${user_mysql} -s /bin/false -M ${user_mysql}
 # install
