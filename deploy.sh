@@ -60,13 +60,6 @@ function mysqlFile() {
   fi
 }
 
-mysqlFile()
-
-exit 1
-
-
-
-
 # go to root directory
 cd
 
@@ -84,8 +77,11 @@ yum -y install autoconf bash-completion make cmake gcc gcc-c++ gcc-g77 redhat-ls
 # yum -y install ftp golang mariadb-server nodejs npm pptpd ruby siege sqlite-devel vsftpd
 yum clean all
 
+echo '================== Download mysql need to use the package =================='
+mysqlFile
+
 echo '================== boost_1_59_0 =================='
-wget -c http://nchc.dl.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.tar.gz
+#wget -c http://nchc.dl.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.tar.gz
 tar -zxvf boost_1_59_0.tar.gz && cd boost_1_59_0/
 ./bootstrap.sh
 ./b2 stage threading=multi link=shared
@@ -99,14 +95,13 @@ patch="${installation_path}/mysql"
 # add mysql user
 groupadd -r ${user_mysql} && useradd -r -g ${user_mysql} -s /bin/false -M ${user_mysql}
 # install
-wget -c https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.19.tar.gz
+#wget -c https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.19.tar.gz
 tar -zxvf mysql-5.7.19.tar.gz && cd mysql-5.7.19
 cmake -DCMAKE_INSTALL_PREFIX=${patch} -DMYSQL_DATADIR=/mydata/mysql/data -DSYSCONFDIR=/etc -DMYSQL_USER=mysql -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_READLINE=1 -DMYSQL_UNIX_ADDR=/var/run/mysql/mysql.sock -DMYSQL_TCP_PORT=3306 -DENABLED_LOCAL_INFILE=1 -DENABLE_DOWNLOADS=1 -DWITH_PARTITION_STORAGE_ENGINE=1 -DEXTRA_CHARSETS=all -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_DEBUG=0  -DMYSQL_MAINTAINER_MODE=0 -DWITH_SSL:STRING=bundled -DWITH_ZLIB:STRING=bundled -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/root/boost_1_59_0
 make && make install
-cd ~ && rm -rf boost_1_59_0*
 # cnf
 mv /etc/my.cnf /etc/my.cnf.bak
-wget -c https://raw.githubusercontent.com/chenjiazhen/deploy/master/mysql/my.cnf
+#wget -c https://raw.githubusercontent.com/chenjiazhen/deploy/master/mysql/my.cnf
 mv my.cnf /etc/my.cnf
 # PATH
 echo -e '\n\nexport PATH=/usr/local/mysql/bin:$PATH\n' >> /etc/profile && source /etc/profile
@@ -131,5 +126,7 @@ echo '/usr/local/mysql/lib' > /etc/ld.so.conf.d/mysql.conf
 ldconfig
 # 自动生成指定的临时目录
 echo -e "d /var/run/mysql 0755 mysql mysql" >> /usr/lib/tmpfiles.d/var.conf
+# Delete the package
+cd ~ && rm -rf boost_1_59_0* && rm -rf mysql-5.7.19* && rm -rf my.cnf
 
 echo 'Successful installation'
