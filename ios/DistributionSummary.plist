@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>lndeliveryman.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>2CCF8D6319F6E27A85BF1770CA33DBD8E48746FD</string>
+				<key>dateExpires</key>
+				<string>2017/12/6</string>
+				<key>type</key>
+				<string>iOS Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>Y4H645Q357.com.lianni.lndeliveryman</string>
+				<key>aps-environment</key>
+				<string>production</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>Y4H645Q357</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>lndeliveryman.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>7d7384f2-34cd-4d56-97e6-c6be94e4d72b</string>
+				<key>name</key>
+				<string>XC iOS Ad Hoc: com.lianni.lndeliveryman</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>Y4H645Q357</string>
+				<key>name</key>
+				<string>Guangxi Lianni technology co., LTD</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
