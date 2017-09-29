@@ -133,19 +133,19 @@ name="nginx-${version_nginx}"
 tar="${name}.tar.gz"
 path="${installation_path}/nginx"
 sourceInstaller ${name} ${tar} http://nginx.org/download/${tar} " --prefix=${path} --user=${user_http} --group=${user_http} --with-http_gzip_static_module --with-http_image_filter_module=dynamic --with-http_ssl_module --with-http_stub_status_module --with-http_xslt_module=dynamic --with-mail=dynamic --with-stream=dynamic --with-compat --add-dynamic-module=${passenger_nginx_addon_dir}"
-# echo "export PATH=${path}/sbin:"'$PATH' > /etc/profile.d/nginx.sh
-# source /etc/profile.d/nginx.sh
-# setsebool -P httpd_can_network_connect=1
-# wget -c https://github.com/xiewulong/nginx/raw/master/www.service.sample
-# mv www.service.sample /usr/lib/systemd/system/www.service
+echo "export PATH=${path}/sbin:"'$PATH' > /etc/profile.d/nginx.sh
+source /etc/profile.d/nginx.sh
+setsebool -P httpd_can_network_connect=1
+wget -c https://github.com/xiewulong/nginx/raw/master/www.service.sample
+mv www.service.sample /usr/lib/systemd/system/www.service
 
 echo '================== php =================='
 name="php-${version_php}"
 tar="${name}.tar.gz"
 path="${installation_path}/php"
 sourceInstaller ${name} ${tar} http://cn2.php.net/distributions/${tar} " --prefix=${path} --with-config-file-path=${path}/etc --enable-fpm --with-fpm-user=${user_http} --with-fpm-group=${user_http} --enable-mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-iconv-dir --with-freetype-dir=${installation_path}/freetype --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --enable-mbregex --enable-mbstring --enable-intl --enable-pcntl --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --with-gettext --enable-opcache --with-xsl" "cp php.ini-development php.ini-production ${path}/etc/"
-# echo "export PATH=${path}/sbin:${path}/bin:"'$PATH' > /etc/profile.d/php.sh
-# source /etc/profile.d/php.sh
+echo "export PATH=${path}/sbin:${path}/bin:"'$PATH' > /etc/profile.d/php.sh
+source /etc/profile.d/php.sh
 cp ${path}/etc/php-fpm.conf.default ${path}/etc/php-fpm.conf
 cp ${path}/etc/php.ini-production ${path}/etc/php.ini
 cp ${path}/etc/php-fpm.d/www.conf.default ${path}/etc/php-fpm.d/www.conf
