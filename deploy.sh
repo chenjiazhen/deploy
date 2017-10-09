@@ -62,6 +62,9 @@ function mysqlFile() {
 # go to root directory
 cd
 
+':
+
+
 # echo '================== hostname =================='
 hostnamectl set-hostname cy
 
@@ -101,7 +104,7 @@ make && make install
 # cnf
 mv /etc/my.cnf /etc/my.cnf.bak
 #wget -c https://raw.githubusercontent.com/chenjiazhen/deploy/master/mysql/my.cnf
-mv my.cnf /etc/my.cnf
+mv /root/my.cnf /etc/my.cnf
 # PATH
 echo -e '\n\nexport PATH=/usr/local/mysql/bin:$PATH\n' >> /etc/profile && source /etc/profile
 # 目录/mydata/mysql/data，用于存放MySQL的数据库文件。同时设置其用户和用户组为之前创建的mysql，权限为700。这样其它用户是无法进行读写的，尽量保证数据库的安全。
@@ -126,8 +129,8 @@ ldconfig
 # 自动生成指定的临时目录
 echo -e "d /var/run/mysql 0755 mysql mysql" >> /usr/lib/tmpfiles.d/var.conf
 # Delete the package
-cd ~ && rm -rf boost_1_59_0* && rm -rf mysql-5.7.19* && rm -rf my.cnf
-
+cd ~ && rm -rf boost_1_59_0* && rm -rf mysql-5.7.19*
+'
 echo '================== nginx =================='
 name="nginx-${version_nginx}"
 tar="${name}.tar.gz"
