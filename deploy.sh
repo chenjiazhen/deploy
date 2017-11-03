@@ -62,7 +62,9 @@ function mysqlFile() {
 # go to root directory
 cd
 
-':
+echo "================== ${user_http} =================="
+useradd ${user_http}
+# chcon -Rt httpd_sys_rw_content_t /home/${user_http}
 
 
 # echo '================== hostname =================='
@@ -130,7 +132,7 @@ ldconfig
 echo -e "d /var/run/mysql 0755 mysql mysql" >> /usr/lib/tmpfiles.d/var.conf
 # Delete the package
 cd ~ && rm -rf boost_1_59_0* && rm -rf mysql-5.7.19*
-'
+
 echo '================== nginx =================='
 name="nginx-${version_nginx}"
 tar="${name}.tar.gz"
@@ -166,5 +168,7 @@ pecl config-set php_ini ${path}/etc/php.ini
 # chown ${user_http}:${user_http} /var/lib/php/session
 wget -c https://github.com/xiewulong/deploy/raw/master/systemd/php-fpm.service
 mv php-fpm.service /usr/lib/systemd/system/
+
+# 未设置开机即启动 www.service php-fpm.service
 
 echo 'Successful installation'
